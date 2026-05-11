@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Anchor – USA Market Expansion</title>
+<style>
+  /* Force crisp pixel rendering throughout */
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  img, svg { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Anchor exact brand colors from sayanchor.com */
+  --bg:     #080B14;   /* near-black page background */
+  --card:   #0E1420;   /* card/section background */
+  --card2:  #131926;   /* slightly lighter card */
+  --mint:   #4DFFD2;   /* primary accent – bright mint/teal CTA */
+  --mint2:  #2DE8BB;   /* slightly deeper mint */
+  --purple: #8B5CF6;   /* secondary – violet */
+  --pink:   #F472B6;   /* gradient end */
+  --white:  #FFFFFF;
+  --text:   #E8EAF0;   /* body text */
+  --muted2: rgba(232,234,240,0.45);
+  --border: rgba(255,255,255,0.08);
+  --dark:   #080B14;
+  /* kept for compatibility */
+  --navy:   #080B14;
+  --navy2:  #0E1420;
+  --teal:   #4DFFD2;
+  --teal2:  #2DE8BB;
+  --purple2:#A78BFA;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);user-select:none;}
+#scaler{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+#stage{width:100vw;height:100vh;position:relative;}
+#deck{position:absolute;inset:0;overflow:hidden;cursor:grab;}
+#deck:active{cursor:grabbing;}
+#deck-inner{display:flex;height:100%;transition:transform .5s cubic-bezier(.77,0,.18,1);will-change:transform;}
+.slide{min-width:100vw;width:100vw;height:100%;position:relative;overflow:visible;flex-shrink:0;display:flex;flex-direction:column;}
+.slide-body{padding:52px 88px 16px;flex:1;display:flex;flex-direction:column;}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(77,255,210,.3);border-radius:100px;padding:6px 18px;width:fit-content;margin-bottom:14px;}
+.h1{font-family:'Syne',sans-serif;font-size:74px;font-weight:800;line-height:1.15;padding-bottom:6px;}
+.h2{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1.15;margin-bottom:14px;padding-bottom:4px;}
+.h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;line-height:1.3;}
+.muted{color:var(--muted2);}
+.teal{color:var(--mint);} .purple{color:var(--purple2);} .pink{color:var(--pink);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 22px;}
+.card.teal-border{border-color:rgba(77,255,210,.3);background:rgba(77,255,210,.05);}
+.card.purple-border{border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.05);}
+.card.red-border{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.05);}
+.card.yellow-border{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05);}
+/* stat numbers: large, bright mint, solid (no gradient = no misalignment) */
+.stat-val{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1.1;margin-bottom:8px;color:var(--mint);display:block;}
+.stat-lbl{font-size:19px;color:var(--text);font-weight:500;}
+.stat-sub{font-size:15px;color:var(--muted2);margin-top:6px;}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,.5);}
+.stat-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px;}
+.insight{margin-top:auto;padding:18px 24px;background:rgba(77,255,210,.07);border:1px solid rgba(77,255,210,.2);border-radius:12px;font-size:15px;color:rgba(232,234,240,.75);line-height:1.7;}
+.insight strong{color:var(--mint);}
+.tbl{width:100%;border-collapse:collapse;font-size:17px;}
+.tbl th{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);}
+.tbl th.r{text-align:right;}
+.tbl td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--text);font-size:17px;}
+.tbl td.r{text-align:right;}
+.tbl td.bold{font-family:'Syne',sans-serif;font-weight:700;color:#fff;}
+.tbl tr.total td{color:var(--mint);font-family:'Syne',sans-serif;font-weight:700;border-top:1px solid rgba(0,196,160,.25);border-bottom:none;}
+.tbl td.neg{color:#F87171;} .tbl td.pos{color:#34D399;}
+.badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.06em;}
+.badge-red{background:rgba(239,68,68,.15);color:#F87171;}
+.badge-yellow{background:rgba(245,158,11,.15);color:#FCD34D;}
+.badge-green{background:rgba(77,255,210,.15);color:var(--mint);}
+.expand-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;border:1px solid rgba(77,255,210,.25);background:rgba(77,255,210,.06);color:var(--text);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.expand-btn:hover{background:rgba(77,255,210,.15);border-color:var(--mint);color:#fff;}
+.expand-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:18px;}
+#overlay{position:fixed;inset:0;background:rgba(10,8,30,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;z-index:1000;}
+#overlay.open{opacity:1;pointer-events:all;}
+#panel{width:1180px;max-height:800px;background:var(--navy2);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1);display:flex;flex-direction:column;}
+#overlay.open #panel{transform:translateY(0) scale(1);}
+#panel-header{display:flex;align-items:center;justify-content:space-between;padding:22px 34px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;}
+#panel-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
+#panel-close{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+#panel-close:hover{background:rgba(236,72,153,.2);border-color:var(--pink);}
+#panel-body{padding:28px 34px;overflow-y:auto;flex:1;}
+.scen-bar{display:flex;gap:10px;margin-bottom:16px;}
+.scen-btn{padding:8px 20px;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.scen-btn.on{background:var(--mint);border-color:var(--mint);color:var(--bg);}
+.mesh1{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 85% 15%,rgba(139,92,246,.25) 0%,transparent 55%),radial-gradient(ellipse 55% 70% at 8% 85%,rgba(77,255,210,.15) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 50% 55%,rgba(236,72,153,.1) 0%,transparent 50%);}
+.mesh2{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 90% 80%,rgba(77,255,210,.12) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 5% 20%,rgba(139,92,246,.18) 0%,transparent 50%);}
+.bg-navy{background:var(--bg);} .bg-navy2{background:var(--card);}
+.cover-body{position:relative;z-index:1;padding:80px 100px;height:100%;display:flex;flex-direction:column;}
+.cover-footer{display:flex;gap:56px;padding-top:32px;border-top:1px solid rgba(255,255,255,.08);}
+.cover-meta strong{display:block;font-size:16px;color:#fff;font-weight:500;}
+.cover-meta span{font-size:13px;color:rgba(232,234,240,.4);}
+.logo{margin-left:auto;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;display:flex;align-items:center;gap:10px;}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--teal),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.phase{flex:1;padding:22px 18px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.03);}
+.phase-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.phase-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:3px;}
+.phase-period{font-size:14px;color:rgba(255,255,255,.35);margin-bottom:12px;}
+.phase ul{list-style:none;}
+.phase li{font-size:15px;color:rgba(232,234,240,.65);padding:4px 0;padding-left:14px;position:relative;line-height:1.5;}
+.phase li::before{content:"▸";position:absolute;left:0;color:var(--mint);font-size:10px;top:5px;}
+.tier{flex:1;padding:26px 22px;border-radius:16px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);}
+.tier.featured{border-color:rgba(0,196,160,.4);background:rgba(0,196,160,.06);position:relative;}
+.tier-badge{position:absolute;top:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--teal);color:var(--navy);padding:3px 10px;border-radius:100px;}
+.tier-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;}
+.tier-target{font-size:17px;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.tier-price{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--teal);margin-bottom:4px;}
+.tier-price span{font-size:16px;color:rgba(255,255,255,.5);font-weight:400;font-family:'DM Sans',sans-serif;}
+.tier-features{list-style:none;margin-top:14px;}
+.tier-features li{font-size:17px;color:rgba(232,234,240,.8);padding:5px 0;display:flex;gap:8px;}
+.tier-features li::before{content:"›";color:var(--mint);font-weight:800;}
+.tkw{display:flex;align-items:flex-start;gap:16px;padding:15px 20px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);}
+.tkw-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--teal);min-width:34px;line-height:1.2;}
+.tkw-text{font-size:18px;color:rgba(232,234,240,.88);line-height:1.6;}
+#bottom-nav{position:fixed;top:20px;right:28px;transform:none;display:flex;align-items:center;gap:12px;background:rgba(13,11,30,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:8px 18px;z-index:500;box-shadow:0 4px 24px rgba(0,0,0,.3);}
+.nav-arrow{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.nav-arrow:hover:not([disabled]){background:rgba(77,255,210,.2);border-color:var(--mint);}
+.nav-arrow[disabled]{opacity:.3;cursor:default;}
+#dot-track{display:flex;gap:8px;align-items:center;}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .25s;}
+.dot.on{background:var(--mint);width:22px;border-radius:4px;}
+#slide-num{font-family:'Syne',sans-serif;font-size:12px;color:rgba(255,255,255,.45);min-width:44px;text-align:right;}
+.pcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:22px 20px;}
+.pcard h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;}
+.pcard p,.pcard li{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;}
+.pcard ul{padding-left:16px;}
+.pcard.teal-b{border-color:rgba(77,255,210,.3);background:rgba(77,255,210,.05);}
+.pcard.purple-b{border-color:rgba(124,58,237,.3);background:rgba(124,58,237,.05);}
+.pcard.pink-b{border-color:rgba(236,72,153,.3);background:rgba(236,72,153,.05);}
+.pcard.red-b{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.05);}
+/* pval: solid teal, no gradient, proper line-height so numbers all sit on same baseline */
+.pval{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;line-height:1.1;color:var(--mint);display:block;margin-bottom:6px;}
+.plbl{font-size:12px;color:rgba(255,255,255,.4);}
+.panel-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.panel-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.highlight-box{padding:18px 24px;border-radius:12px;margin-top:16px;background:rgba(77,255,210,.06);border:1px solid rgba(77,255,210,.2);font-size:14px;color:rgba(232,234,240,.75);line-height:1.7;}
+.highlight-box strong{color:var(--mint);}
+.sens-tbl{border-collapse:collapse;width:100%;font-size:12px;}
+.sens-tbl th{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:8px 10px;text-align:center;}
+.sens-tbl td{padding:10px 12px;text-align:center;border-radius:4px;font-weight:500;}
+.sens-tbl .rhdr{text-align:left;color:rgba(255,255,255,.7);font-weight:600;}
+</style>
+</head>
+<body>
+<div id="scaler"><div id="stage">
+<div id="deck"><div id="deck-inner">
+
+<!-- SLIDE 0: COVER -->
+<div class="slide bg-navy">
+  <div class="mesh1"></div>
+  <div class="cover-body">
+    <div class="chip" style="margin-bottom:36px">📋 Director of Finance &amp; Compliance · Task 1</div>
+    <div class="h1">USA Market<br><span class="teal">Expansion</span><br>Plan</div>
+    <p style="font-size:20px;color:rgba(255,255,255,.45);font-weight:300;margin-top:16px;margin-bottom:auto">3-Year Financial Model &amp; Strategic Framework · April 2026</p>
+    <div class="cover-footer">
+      <div class="cover-meta"><strong>Market</strong><span>United States</span></div>
+      <div class="cover-meta"><strong>Horizon</strong><span>2026–2028</span></div>
+      <div class="cover-meta"><strong>TAM</strong><span>$516M at full penetration</span></div>
+      <div class="cover-meta"><strong>Model</strong><span>$5 flat fee / transaction</span></div>
+      <div class="logo">
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="icon-teal" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2EDFC2"/>
+      <stop offset="100%" stop-color="#5BA4F5"/>
+    </linearGradient>
+    <linearGradient id="icon-purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="100%" stop-color="#B44FD8"/>
+    </linearGradient>
+    <linearGradient id="icon-pink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B44FD8"/>
+      <stop offset="100%" stop-color="#F06292"/>
+    </linearGradient>
+  </defs>
+  <!-- Left teal stroke of the A -->
+  <path d="M6 38 L18 10 C19.5 7 22 6 24 7 C26 8 27 10 26 13 L16 38 Z" fill="url(#icon-teal)" rx="3"/>
+  <!-- Right purple stroke of the A -->
+  <path d="M26 13 C27 10 30 7 33 8 C36 9 38 13 36 18 L26 38 L20 38 L30 18 Z" fill="url(#icon-purple)"/>
+  <!-- Pink bottom curl / tail -->
+  <path d="M20 38 C22 42 28 45 34 42 C38 40 40 36 38 32 L34 38 Z" fill="url(#icon-pink)" opacity="0.9"/>
+  <!-- "anchor" wordmark in dark charcoal matching screenshot -->
+  <text x="50" y="33" font-family="'Syne','Inter',sans-serif" font-weight="700" font-size="28" fill="#FFFFFF" letter-spacing="-0.3">anchor</text>
+</svg>
+</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 1: MARKET OPPORTUNITY -->
+<div class="slide bg-navy2">
+  <div class="mesh2"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">01 · Market Opportunity</div>
+    <div class="h2">The US Market Is Largely Untapped</div>
+    <div class="grid4" style="margin-top:14px">
+      <div class="card"><div class="stat-val">100K</div><div class="stat-lbl">Accounting Firms</div><div class="stat-sub">60K small · 30K medium · 10K large</div></div>
+      <div class="card"><div class="stat-val">$516M</div><div class="stat-lbl">Total Addressable Market</div><div class="stat-sub">At full penetration · $5/txn</div></div>
+      <div class="card"><div class="stat-val">$187B</div><div class="stat-lbl">US Accounting Services</div><div class="stat-sub">5.4% CAGR through 2028</div></div>
+      <div class="card"><div class="stat-val">&lt;10%</div><div class="stat-lbl">Competitor Penetration</div><div class="stat-sub">Ignition: 8,500 firms after 12 years</div></div>
+    </div>
+    <div class="insight" style="margin-top:18px"><strong>Why now:</strong> 60% of US SMBs struggle with late payments. Anchor's autonomous collection model eliminates the problem entirely — and the market leader has barely scratched the surface after a decade. This is a first-mover window.</div>
+    <div class="expand-row">
+      <button class="expand-btn" onclick="openPanel('competitive')"><span>⚔️</span> Competitive Landscape</button>
+      <button class="expand-btn" onclick="openPanel('segments')"><span>📊</span> Segment Breakdown &amp; TAM</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: FINANCIAL CONSIDERATIONS -->
+<div class="slide bg-navy">
+  <div class="mesh1"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">02 · Financial Considerations</div>
+    <div class="h2">Key Financial Factors Before Launch</div>
+    <div class="grid2" style="margin-top:14px;flex:1">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card red-border">
+          <div style="font-size:20px;margin-bottom:8px">🏛️</div>
+          <div class="h3" style="font-size:18px;margin-bottom:8px">Regulatory &amp; Licensing</div>
+          <p style="font-size:15px;color:rgba(232,234,240,.65);line-height:1.65">MTL required in 49 states + D.C. Timeline: 6–18 months/state. Cost: $240K–$475K+. <strong style="color:#F87171">Critical path — must start Day 1.</strong></p>
+          <span class="badge badge-red" style="margin-top:12px;font-size:11px">Critical Risk</span>
+        </div>
+        <div class="card yellow-border">
+          <div style="font-size:20px;margin-bottom:8px">🏢</div>
+          <div class="h3" style="font-size:18px;margin-bottom:8px">Legal Entity &amp; Tax</div>
+          <p style="font-size:15px;color:rgba(232,234,240,.65);line-height:1.65">Delaware C-Corp required. Transfer pricing policy mandatory. Israel–US tax treaty in place.</p>
+          <span class="badge badge-yellow" style="margin-top:10px">Year 1 Priority</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card red-border">
+          <div style="font-size:20px;margin-bottom:8px">💸</div>
+          <div class="h3" style="font-size:18px;margin-bottom:8px">Cash Runway</div>
+          <p style="font-size:15px;color:rgba(232,234,240,.65);line-height:1.65">Year 1 is cash-burn. One-time entry ~$750K + OpEx before meaningful revenue. Minimum 18–24 months runway required.</p>
+          <span class="badge badge-red" style="margin-top:10px">Board Approval</span>
+        </div>
+        <div class="card teal-border">
+          <div style="font-size:20px;margin-bottom:8px">⚖️</div>
+          <div class="h3" style="font-size:18px;margin-bottom:8px">BSA / AML Compliance</div>
+          <p style="font-size:15px;color:rgba(232,234,240,.65);line-height:1.65">Mandatory FinCEN MSB registration. Dedicated compliance officer from Day 1. Ongoing cost: $200K–$400K/yr.</p>
+          <span class="badge badge-green" style="margin-top:10px">Manageable</span>
+        </div>
+      </div>
+    </div>
+    <div class="expand-row">
+      <button class="expand-btn" onclick="openPanel('regulatory')"><span>🏛️</span> Regulatory Deep-Dive</button>
+      <button class="expand-btn" onclick="openPanel('uniteconomics')"><span>📐</span> Unit Economics (CAC / LTV)</button>
+      <button class="expand-btn" onclick="openPanel('cashmodel')"><span>💰</span> Cash Burn &amp; Runway</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: PRICING -->
+<div class="slide bg-navy2">
+  <div class="mesh2"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">03 · Pricing Strategy</div>
+    <div class="h2">Proposed 3-Tier Pricing Structure</div>
+    <div style="display:flex;gap:18px;margin-top:18px;flex:1">
+      <div class="tier">
+        <div class="tier-name">Pay-as-you-go</div>
+        <div class="tier-target">Small Firms · &lt;50 txns/mo</div>
+        <div class="tier-price">$5 <span>/ transaction</span></div>
+        <ul class="tier-features">
+          <li>No monthly minimum</li><li>No subscription fee</li>
+          <li>ACH free · CC 2.9%+$0.30</li><li>Full platform access</li>
+        </ul>
+      </div>
+      <div class="tier featured">
+        <div class="tier-badge">PRIMARY TARGET</div>
+        <div class="tier-name">Monthly Cap</div>
+        <div class="tier-target">Medium Firms · 50–300 txns/mo</div>
+        <div class="tier-price">$249 <span>/ month</span></div>
+        <ul class="tier-features">
+          <li>Unlimited transactions</li><li>Predictable cost ceiling</li>
+          <li>Priority support</li><li>15% off on annual commit</li>
+        </ul>
+      </div>
+      <div class="tier" style="border-color:rgba(124,58,237,.3);background:rgba(124,58,237,.05)">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-target">Large Firms · 300+ txns/mo</div>
+        <div class="tier-price">Custom <span>/ year</span></div>
+        <ul class="tier-features">
+          <li>Negotiated annual contract</li><li>Dedicated account manager</li>
+          <li>SLA guarantees</li><li>Custom integrations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="expand-row">
+      <button class="expand-btn" onclick="openPanel('pricing_rationale')"><span>💡</span> Pricing Rationale</button>
+      <button class="expand-btn" onclick="openPanel('discounts')"><span>🏷️</span> Discount Policy</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: 3-YEAR P&L -->
+<div class="slide bg-navy">
+  <div class="mesh1"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">04 · Financial Model</div>
+    <div class="h2">3-Year P&amp;L Summary</div>
+    <div class="scen-bar" style="margin-top:10px">
+      <button class="scen-btn on" onclick="switchScen('base',this)">Base Case</button>
+      <button class="scen-btn" onclick="switchScen('conservative',this)">Conservative</button>
+      <button class="scen-btn" onclick="switchScen('optimistic',this)">Optimistic</button>
+    </div>
+    <table class="tbl" id="main-pl"></table>
+    <div class="expand-row">
+      <button class="expand-btn" onclick="openPanel('fullpl')"><span>📋</span> Full P&amp;L Detail</button>
+      <button class="expand-btn" onclick="openPanel('sensitivity')"><span>🎯</span> Sensitivity Analysis</button>
+      <button class="expand-btn" onclick="openPanel('bva')"><span>📊</span> BVA Framework</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: GTM -->
+<div class="slide bg-navy2">
+  <div class="mesh2"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">05 · Go-To-Market</div>
+    <div class="h2">Phased Market Entry Strategy</div>
+    <div style="display:flex;gap:18px;margin-top:18px;flex:1">
+      <div class="phase">
+        <div class="phase-num">Phase 01</div><div class="phase-title">Foundation</div>
+        <div class="phase-period">Months 1–6 · 2026</div>
+        <ul><li>Delaware C-Corp + FinCEN registration</li><li>MTL filing: CA, NY, TX, FL, IL</li><li>Hire: 2 SDRs + compliance officer</li><li>AICPA community partnerships</li><li>$750K one-time setup investment</li></ul>
+      </div>
+      <div class="phase" style="border-color:rgba(0,196,160,.25)">
+        <div class="phase-num">Phase 02</div><div class="phase-title">Traction</div>
+        <div class="phase-period">Months 7–18 · 2026–2027</div>
+        <ul><li>100% focus on medium firms</li><li>Expand to 20 additional states</li><li>Scale SDR team to 5 reps</li><li>Launch Monthly Cap pricing tier</li><li>First 100 early adopters locked in</li></ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Phase 03</div><div class="phase-title">Scale</div>
+        <div class="phase-period">Months 19–36 · 2027–2028</div>
+        <ul><li>Full 50-state MTL coverage</li><li>Enterprise motion activated</li><li>SDR team: 10 reps</li><li>QBO + Karbon deep integrations</li><li>Evaluate path to profitability</li></ul>
+      </div>
+    </div>
+    <div class="expand-row">
+      <button class="expand-btn" onclick="openPanel('pipeline')"><span>⚡</span> Sales Pipeline Model</button>
+      <button class="expand-btn" onclick="openPanel('risks')"><span>⚠️</span> Risk Register</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: TAKEAWAYS -->
+<div class="slide bg-navy">
+  <div class="mesh1"></div>
+  <div class="slide-body" style="position:relative;z-index:1">
+    <div class="chip">06 · Key Takeaways</div>
+    <div class="h2">The CFO's Verdict</div>
+    <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px">
+      <div class="tkw"><span class="tkw-num">01</span><div class="tkw-text">The US market represents a <strong style="color:var(--teal)">$516M TAM</strong> with market leader penetration below 10% after 12 years. The timing is right.</div></div>
+      <div class="tkw"><span class="tkw-num">02</span><div class="tkw-text"><strong style="color:#F87171">Regulatory licensing is the critical path.</strong> MTL filings must begin immediately — 6–18 months per state. Launch must be phased by state readiness.</div></div>
+      <div class="tkw"><span class="tkw-num">03</span><div class="tkw-text"><strong style="color:var(--teal)">Medium firms are the engine.</strong> LTV:CAC of 10.5:1 vs. 0.8:1 for small firms. All paid acquisition must focus exclusively on medium and large.</div></div>
+      <div class="tkw"><span class="tkw-num">04</span><div class="tkw-text">A <strong style="color:var(--purple2)">3-tier pricing model</strong> protects margin at scale. The flat $5 model becomes a competitive liability above 50 transactions/month.</div></div>
+      <div class="tkw"><span class="tkw-num">05</span><div class="tkw-text"><strong style="color:#FCD34D">BVA trigger points must be pre-agreed with the board.</strong> Variance &gt;30% triggers a full strategic review. Monitoring begins Month 1.</div></div>
+    </div>
+  </div>
+</div>
+
+</div></div><!-- /deck-inner /deck -->
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="handleOverlayClick(event)">
+  <div id="panel">
+    <div id="panel-header">
+      <div id="panel-title"></div>
+      <button id="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div id="panel-body"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div id="bottom-nav">
+  <button class="nav-arrow" id="btn-prev" onclick="prev()" disabled>←</button>
+  <div id="dot-track"></div>
+  <button class="nav-arrow" id="btn-next" onclick="next()">→</button>
+  <div id="slide-num">1 / 7</div>
+</div>
+
+</div></div><!-- /stage /scaler -->
+
+<script>
+// NAV
+const slides=Array.from(document.querySelectorAll('.slide'));
+const N=slides.length;
+let cur=0;
+const inner=document.getElementById('deck-inner');
+const dotTrack=document.getElementById('dot-track');
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot';
+  d.addEventListener('click',()=>goTo(i));
+  dotTrack.appendChild(d);
+});
+
+function goTo(n){
+  if(n<0||n>=N)return;
+  cur=n;
+  inner.style.transform=`translateX(${-cur*window.innerWidth}px)`;
+  document.getElementById('btn-prev').disabled=cur===0;
+  document.getElementById('btn-next').disabled=cur===N-1;
+  document.getElementById('slide-num').textContent=`${cur+1} / ${N}`;
+  document.querySelectorAll('#dot-track .dot').forEach((d,i)=>d.className='dot'+(i===cur?' on':''));
+}
+function next(){goTo(cur+1);}
+function prev(){goTo(cur-1);}
+
+document.addEventListener('keydown',e=>{
+  if(overlayOpen){if(e.key==='Escape')closePanel();return;}
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prev();}
+});
+
+// DRAG
+let dragX=0,dragging=false;
+const deck=document.getElementById('deck');
+deck.addEventListener('mousedown',e=>{
+  if(e.target.closest('.expand-btn,.scen-btn,#panel,#panel-close'))return;
+  dragging=true;dragX=e.clientX;inner.style.transition='none';
+});
+document.addEventListener('mousemove',e=>{
+  if(!dragging)return;
+  inner.style.transform=`translateX(${-cur*window.innerWidth+(e.clientX-dragX)}px)`;
+});
+document.addEventListener('mouseup',e=>{
+  if(!dragging)return;
+  dragging=false;
+  inner.style.transition='transform .5s cubic-bezier(.77,0,.18,1)';
+  const dx=e.clientX-dragX;
+  if(dx<-80)next();else if(dx>80)prev();else goTo(cur);
+});
+deck.addEventListener('touchstart',e=>{dragX=e.touches[0].clientX;inner.style.transition='none';},{passive:true});
+deck.addEventListener('touchend',e=>{
+  inner.style.transition='transform .5s cubic-bezier(.77,0,.18,1)';
+  const dx=e.changedTouches[0].clientX-dragX;
+  if(dx<-60)next();else if(dx>60)prev();else goTo(cur);
+},{passive:true});
+
+goTo(0);
+
+// P&L DATA
+const PL={
+  base:[
+    ['REVENUE','$1,764,000','$8,136,000','$27,846,000','total'],
+    ['Total COGS','($1,030,000)','($460,000)','($700,000)','indent'],
+    ['GROSS PROFIT','$734,000','$7,676,000','$27,146,000','total'],
+    ['Total OpEx','($1,816,400)','($4,623,600)','($10,024,600)','indent'],
+    ['EBITDA','($1,082,400)','$3,052,400','$17,121,400','total'],
+    ['EBITDA Margin','−61%','37%','61%','margin'],
+  ],
+  conservative:[
+    ['REVENUE','$576,000','$1,944,000','$5,940,000','total'],
+    ['Total COGS','($1,030,000)','($460,000)','($700,000)','indent'],
+    ['GROSS PROFIT','($454,000)','$1,484,000','$5,240,000','total'],
+    ['Total OpEx','($1,697,600)','($4,004,400)','($7,834,000)','indent'],
+    ['EBITDA','($3,181,600)','($2,980,400)','($2,594,000)','total'],
+    ['EBITDA Margin','−552%','−153%','−44%','margin'],
+  ],
+  optimistic:[
+    ['REVENUE','$3,528,000','$16,272,000','$50,220,000','total'],
+    ['Total COGS','($1,030,000)','($460,000)','($700,000)','indent'],
+    ['GROSS PROFIT','$2,498,000','$15,812,000','$49,520,000','total'],
+    ['Total OpEx','($1,992,800)','($5,437,200)','($12,262,000)','indent'],
+    ['EBITDA','$505,200','$10,374,800','$37,258,000','total'],
+    ['EBITDA Margin','14%','64%','74%','margin'],
+  ]
+};
+
+function renderPL(key){
+  const t=document.getElementById('main-pl');
+  const neg=v=>v&&(v.startsWith('(')||v.startsWith('−')||v.startsWith('-'));
+  t.innerHTML='';
+  const thead=document.createElement('thead');
+  thead.innerHTML='<tr><th>Line Item</th><th class="r">Year 1 (2026)</th><th class="r">Year 2 (2027)</th><th class="r">Year 3 (2028)</th></tr>';
+  t.appendChild(thead);
+  const tbody=document.createElement('tbody');
+  PL[key].forEach(r=>{
+    const tr=document.createElement('tr');
+    if(r[3]==='total')tr.className='total';
+    tr.innerHTML=`<td class="${r[3]==='total'?'bold':''}" style="${r[3]==='indent'?'padding-left:26px;color:rgba(255,255,255,.5)':''}">${r[0]}</td>`+
+      [r[1],r[2],r[3]].map(v=>typeof v==='string'&&v!=='total'&&v!=='indent'&&v!=='margin'?`<td class="r ${neg(v)?'neg':''}">${v}</td>`:'<td class="r">—</td>').join('');
+    tbody.appendChild(tr);
+  });
+  t.appendChild(tbody);
+}
+
+function switchScen(key,btn){
+  document.querySelectorAll('#s4 .scen-btn,#main-pl~.scen-bar .scen-btn,.scen-bar .scen-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderPL(key);
+}
+renderPL('base');
+
+// OVERLAY
+let overlayOpen=false;
+function openPanel(id){
+  const d=PANELS[id];if(!d)return;
+  document.getElementById('panel-title').textContent=d.title;
+  document.getElementById('panel-body').innerHTML=d.html;
+  document.getElementById('overlay').classList.add('open');
+  overlayOpen=true;
+  if(d.init)setTimeout(d.init,60);
+}
+function closePanel(){document.getElementById('overlay').classList.remove('open');overlayOpen=false;}
+function handleOverlayClick(e){if(e.target===document.getElementById('overlay'))closePanel();}
+
+// PANELS
+const PANELS={
+  competitive:{title:'⚔️  Competitive Landscape',html:`
+    <div class="panel-grid2">
+      <div class="pcard teal-b"><h4>⚓ Anchor — Our Position</h4><ul><li>$5 flat per transaction — no subscription</li><li>Full automation: proposal → sign → invoice → collect</li><li>QBO sync built-in</li><li>Founded 2021 · $35M raised · 500% growth 2024</li></ul></div>
+      <div class="pcard"><h4>🔥 Ignition — Primary Competitor</h4><ul><li>$39/mo Solo plan (up to 20 clients)</li><li>Broader scope: proposals + client management</li><li>8,500 global clients after 12 years</li><li>Weakness: subscription cost grows with client base</li></ul></div>
+      <div class="pcard"><h4>📋 Adjacent Tools (Karbon, Practice Ignition)</h4><ul><li>Practice management, not pure billing</li><li>Integration opportunity rather than direct threat</li><li>QBO partnership is a key differentiator for Anchor</li></ul></div>
+      <div class="pcard purple-b"><h4>🏆 Anchor's Competitive Edge</h4><ul><li><strong>Price:</strong> $5 flat vs % (Stripe) or subscription (Ignition)</li><li><strong>Simplicity:</strong> one product, one job — collect money</li><li><strong>Automation:</strong> zero manual touchpoints once set up</li><li><strong>Gap:</strong> zero US brand recognition at launch</li></ul></div>
+    </div>
+    <div class="highlight-box"><strong>Strategic read:</strong> Ignition reached 8,500 clients globally after 12 years — less than 10% of the US market alone. Anchor's pricing model is structurally superior for high-volume firms. GTM execution is the differentiator.</div>`},
+
+  segments:{title:'📊  Segment Breakdown & TAM',html:`
+    <div class="panel-grid3" style="margin-bottom:18px">
+      <div class="pcard teal-b"><div class="pval">$36M</div><div class="plbl">Small Firm TAM</div><p style="margin-top:8px;font-size:12px">60,000 × 10 txns/mo × $5 × 12</p></div>
+      <div class="pcard purple-b"><div class="pval">$180M</div><div class="plbl">Medium Firm TAM</div><p style="margin-top:8px;font-size:12px">30,000 × 100 txns/mo × $5 × 12</p></div>
+      <div class="pcard pink-b"><div class="pval">$300M</div><div class="plbl">Large Firm TAM</div><p style="margin-top:8px;font-size:12px">10,000 × 500 txns/mo × $5 × 12</p></div>
+    </div>
+    <table class="tbl"><thead><tr><th>Segment</th><th># Firms</th><th>Mo. Txns</th><th class="r">Rev/Firm/Yr</th><th class="r">TAM</th><th>GTM Priority</th></tr></thead>
+    <tbody>
+      <tr><td>Small</td><td>60,000</td><td>10</td><td class="r">$600</td><td class="r">$36M</td><td><span class="badge badge-yellow">Organic only</span></td></tr>
+      <tr><td>Medium</td><td>30,000</td><td>100</td><td class="r">$6,000</td><td class="r">$180M</td><td><span class="badge badge-green">Primary GTM</span></td></tr>
+      <tr><td>Large</td><td>10,000</td><td>500</td><td class="r">$30,000</td><td class="r">$300M</td><td><span class="badge badge-green">Enterprise motion</span></td></tr>
+      <tr class="total"><td>Total</td><td>100,000</td><td>—</td><td class="r">—</td><td class="r">$516M</td><td>—</td></tr>
+    </tbody></table>
+    <div class="highlight-box" style="margin-top:14px"><strong>Note:</strong> 93% of TAM ($480M) sits in medium + large segments. Small firms (7% of TAM) should only be acquired via zero-cost channels. Never deploy paid marketing for small firms.</div>`},
+
+  regulatory:{title:'🏛️  Regulatory Deep-Dive',html:`
+    <div class="panel-grid2">
+      <div class="pcard red-b"><h4>Money Transmitter License (MTL)</h4><ul><li>Required in 49 states + D.C. — no federal umbrella</li><li>Timeline: 6–18 months per state</li><li>Total cost: $240K–$475K+ in filing fees alone</li><li>Surety bonds required — scale with transaction volume</li><li>Use MMLA framework: 30+ states accept coordinated review</li></ul><span class="badge badge-red" style="margin-top:12px">Start Filing Day 1</span></div>
+      <div class="pcard"><h4>Phase 1 Priority States</h4><p style="margin-bottom:10px">Highest accounting firm density:</p><ul><li>California — 11,000+ firms, largest market</li><li>New York — financial hub, high transaction volume</li><li>Texas — fastest growing accounting market</li><li>Florida — large SMB concentration</li><li>Illinois — major midwest hub</li></ul><span class="badge badge-yellow" style="margin-top:12px">Covers ~35% of US market</span></div>
+      <div class="pcard"><h4>FinCEN MSB Registration</h4><ul><li>Federal Money Services Business registration</li><li>Required before processing any US transactions</li><li>Triggers full BSA/AML program requirement</li><li>Timeline: register within 180 days of operations</li></ul></div>
+      <div class="pcard teal-b"><h4>Delaware C-Corp</h4><ul><li>Standard for US fintech/SaaS — required for institutional investment</li><li>Transfer pricing policy mandatory (Israel ↔ US entity)</li><li>Israel–US tax treaty eliminates double taxation</li><li>Timeline to incorporate: 2–4 weeks</li></ul></div>
+    </div>`},
+
+  uniteconomics:{title:'📐  Unit Economics — CAC vs. LTV by Segment',html:`
+    <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px">Blended CAC ~$9,500 · CPL $310 (First Page Sage) · SDR productivity: 27 deals/yr (Operatix/Gradient Works 2025)</div>
+    <div class="panel-grid3" style="margin-bottom:16px">
+      <div class="pcard red-b"><h4 style="color:#F87171">Small Firms</h4>
+        <table style="width:100%;font-size:12px;margin-top:8px">
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Annual Rev/Customer</td><td style="text-align:right">$600</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Churn Rate</td><td style="text-align:right">8%</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">LTV</td><td style="text-align:right">$7,500</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">CAC</td><td style="text-align:right">$9,500</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,.1)"><td style="color:rgba(255,255,255,.4);padding:5px 0 3px">LTV:CAC</td><td style="text-align:right;color:#F87171;font-weight:700">0.8:1</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Payback</td><td style="text-align:right;color:#F87171;font-weight:700">~19 years</td></tr>
+        </table>
+        <div style="margin-top:12px;padding:7px;background:rgba(239,68,68,.15);border-radius:8px;font-size:11px;color:#F87171;font-weight:600;text-align:center">UNVIABLE via paid channels</div>
+      </div>
+      <div class="pcard teal-b"><h4 style="color:var(--teal)">Medium Firms</h4>
+        <table style="width:100%;font-size:12px;margin-top:8px">
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Annual Rev/Customer</td><td style="text-align:right">$6,000</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Churn Rate</td><td style="text-align:right">6%</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">LTV</td><td style="text-align:right">$100,000</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">CAC</td><td style="text-align:right">$9,500</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,.1)"><td style="color:rgba(255,255,255,.4);padding:5px 0 3px">LTV:CAC</td><td style="text-align:right;color:var(--teal);font-weight:700">10.5:1</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Payback</td><td style="text-align:right;color:var(--teal);font-weight:700">~19 months</td></tr>
+        </table>
+        <div style="margin-top:12px;padding:7px;background:rgba(0,196,160,.15);border-radius:8px;font-size:11px;color:var(--teal);font-weight:600;text-align:center">PRIMARY GTM TARGET</div>
+      </div>
+      <div class="pcard purple-b"><h4 style="color:var(--purple2)">Large Firms</h4>
+        <table style="width:100%;font-size:12px;margin-top:8px">
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Annual Rev/Customer</td><td style="text-align:right">$30,000</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Churn Rate</td><td style="text-align:right">5%</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">LTV</td><td style="text-align:right">$600,000</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">CAC</td><td style="text-align:right">$9,500*</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,.1)"><td style="color:rgba(255,255,255,.4);padding:5px 0 3px">LTV:CAC</td><td style="text-align:right;color:var(--purple2);font-weight:700">63:1</td></tr>
+          <tr><td style="color:rgba(255,255,255,.4);padding:3px 0">Payback</td><td style="text-align:right;color:var(--purple2);font-weight:700">~4 months</td></tr>
+        </table>
+        <div style="margin-top:12px;padding:7px;background:rgba(124,58,237,.15);border-radius:8px;font-size:11px;color:var(--purple2);font-weight:600;text-align:center">HIGH VALUE · LONG CYCLE</div>
+      </div>
+    </div>
+    <div class="highlight-box"><strong>CAC build-up:</strong> 20 leads per customer (1 ÷ 25% close × 20% L2O) × $310 CPL = $6,200 + $3,333 SDR cost ($90K ÷ 27 customers/SDR) = <strong>~$9,500 blended CAC</strong>. *Large firm CAC likely understated due to longer enterprise sales cycles.</div>`},
+
+  cashmodel:{title:'💰  Cash Burn & Runway Model',html:`
+    <table class="tbl" style="margin-bottom:18px">
+      <thead><tr><th>Item</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
+      <tbody>
+        <tr><td>One-time Market Entry</td><td class="r neg">($750,000)</td><td class="r">—</td><td class="r">—</td></tr>
+        <tr><td>Headcount (8→18→32 FTE)</td><td class="r neg">($960,000)</td><td class="r neg">($2,160,000)</td><td class="r neg">($3,840,000)</td></tr>
+        <tr><td>SDR Team (2→5→10)</td><td class="r neg">($180,000)</td><td class="r neg">($450,000)</td><td class="r neg">($900,000)</td></tr>
+        <tr><td>Sales &amp; Marketing</td><td class="r neg">($500,000)</td><td class="r neg">($1,200,000)</td><td class="r neg">($2,500,000)</td></tr>
+        <tr><td>Infrastructure &amp; Cloud</td><td class="r neg">($80,000)</td><td class="r neg">($160,000)</td><td class="r neg">($300,000)</td></tr>
+        <tr><td>Compliance &amp; Legal</td><td class="r neg">($200,000)</td><td class="r neg">($300,000)</td><td class="r neg">($400,000)</td></tr>
+        <tr><td>G&amp;A (10% of revenue)</td><td class="r neg">($176,400)</td><td class="r neg">($813,600)</td><td class="r neg">($2,784,600)</td></tr>
+        <tr class="total"><td>Total Cash Out</td><td class="r neg">($2,846,400)</td><td class="r neg">($5,083,600)</td><td class="r neg">($10,724,600)</td></tr>
+        <tr class="total"><td>Revenue (Base)</td><td class="r pos">$1,764,000</td><td class="r pos">$8,136,000</td><td class="r pos">$27,846,000</td></tr>
+        <tr class="total"><td>Net Cash Flow</td><td class="r neg">($1,082,400)</td><td class="r pos">$3,052,400</td><td class="r pos">$17,121,400</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box"><strong>Runway requirement:</strong> Year 1 net burn ~$1.1M (base) · ~$3.2M (conservative). Board must approve minimum <strong>$4M pre-launch runway</strong>. Break-even in Year 2 under base and optimistic. Conservative scenario does not reach break-even within 3 years.</div>`},
+
+  pricing_rationale:{title:'💡  Pricing Rationale',html:`
+    <div class="panel-grid2">
+      <div class="pcard red-b"><h4>The Problem with Flat $5 at Scale</h4><p>A medium firm with 100 txns/month pays $500/month = $6,000/year. Ignition's equivalent plan: ~$99/month. At volume, the $5 flat fee becomes a <strong>5x price disadvantage</strong> — driving churn exactly where it hurts most: high-volume, high-LTV customers.</p></div>
+      <div class="pcard teal-b"><h4>Why Monthly Cap Solves This</h4><p>At $249/month cap, medium firms pay less than the $5 rate above ~50 transactions. Converts Anchor from a variable cost to a fixed, predictable expense. Also creates <strong>more predictable revenue</strong> for Anchor — reducing seasonal volatility.</p></div>
+      <div class="pcard"><h4>Why Not Subscription-Only?</h4><p>Pay-as-you-go removes all friction for small firms to trial the product. Zero commitment = faster adoption = faster word-of-mouth. Subscription-first creates a top-of-funnel barrier — exactly where Anchor needs volume to build brand trust in a new market.</p></div>
+      <div class="pcard purple-b"><h4>vs. Competitors</h4><ul><li>vs. Ignition: cheaper for small, competitive for medium</li><li>vs. Stripe: no % fee — massive edge for large transactions</li><li>vs. Bill.com: simpler, purpose-built for accounting firms</li></ul></div>
+    </div>`},
+
+  discounts:{title:'🏷️  Discount Policy',html:`
+    <table class="tbl" style="margin-bottom:18px">
+      <thead><tr><th>Discount Type</th><th>Amount</th><th>Eligibility</th><th>Approval</th></tr></thead>
+      <tbody>
+        <tr><td>Annual Commitment</td><td class="pos">15–20%</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Monthly Cap or Enterprise, 12-month commit</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Standard</td></tr>
+        <tr><td>Early Adopter</td><td class="pos">Year 1 price locked</td><td style="font-size:12px;color:rgba(255,255,255,.6)">First 100 US clients</td><td style="font-size:12px;color:rgba(255,255,255,.6)">CMO sign-off</td></tr>
+        <tr><td>Partner / Referral</td><td class="pos">10–15%</td><td style="font-size:12px;color:rgba(255,255,255,.6)">AICPA, CPA.com, QBO partner network</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Standard</td></tr>
+        <tr><td>Volume Tier</td><td class="pos">Custom</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Enterprise only (300+ txns/mo)</td><td style="font-size:12px;color:rgba(255,255,255,.6)">CFO + CEO</td></tr>
+        <tr><td><strong>Ad-hoc</strong></td><td class="neg">PROHIBITED</td><td style="font-size:12px;color:rgba(255,255,255,.6)">No exceptions</td><td style="font-size:12px;color:rgba(255,255,255,.6)">N/A</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box"><strong>Policy rule:</strong> Zero ad-hoc discounts. Every discount must match a defined category. Unapproved discounts are flagged in monthly BVA review. This protects gross margin and prevents sales-driven margin erosion — a common failure mode in early-stage SaaS.</div>`},
+
+  fullpl:{title:'📋  Full 3-Year P&L — Base Case',html:`
+    <table class="tbl">
+      <thead><tr><th>Line Item</th><th class="r">Year 1 (2026)</th><th class="r">Year 2 (2027)</th><th class="r">Year 3 (2028)</th></tr></thead>
+      <tbody>
+        <tr class="total"><td class="bold">REVENUE</td><td class="r pos">$1,764,000</td><td class="r pos">$8,136,000</td><td class="r pos">$27,846,000</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">One-time Entry Cost</td><td class="r neg">($750,000)</td><td class="r">—</td><td class="r">—</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">Infrastructure &amp; Cloud</td><td class="r neg">($80,000)</td><td class="r neg">($160,000)</td><td class="r neg">($300,000)</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">Compliance &amp; Legal</td><td class="r neg">($200,000)</td><td class="r neg">($300,000)</td><td class="r neg">($400,000)</td></tr>
+        <tr class="total"><td class="bold">GROSS PROFIT</td><td class="r pos">$734,000</td><td class="r pos">$7,676,000</td><td class="r pos">$27,146,000</td></tr>
+        <tr><td style="color:rgba(255,255,255,.35);padding:3px 14px;font-size:11px">Gross Margin</td><td class="r" style="font-size:11px;color:rgba(255,255,255,.35)">42%</td><td class="r" style="font-size:11px;color:rgba(255,255,255,.35)">94%</td><td class="r" style="font-size:11px;color:rgba(255,255,255,.35)">97%</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">Headcount (8→18→32 FTE)</td><td class="r neg">($960,000)</td><td class="r neg">($2,160,000)</td><td class="r neg">($3,840,000)</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">SDR Costs</td><td class="r neg">($180,000)</td><td class="r neg">($450,000)</td><td class="r neg">($900,000)</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">Sales &amp; Marketing</td><td class="r neg">($500,000)</td><td class="r neg">($1,200,000)</td><td class="r neg">($2,500,000)</td></tr>
+        <tr><td style="padding-left:24px;color:rgba(255,255,255,.5)">G&amp;A (10% of revenue)</td><td class="r neg">($176,400)</td><td class="r neg">($813,600)</td><td class="r neg">($2,784,600)</td></tr>
+        <tr class="total"><td class="bold">EBITDA</td><td class="r neg">($1,082,400)</td><td class="r pos">$3,052,400</td><td class="r pos">$17,121,400</td></tr>
+        <tr><td style="color:rgba(255,255,255,.35);padding:3px 14px;font-size:11px">EBITDA Margin</td><td class="r neg" style="font-size:11px">−61%</td><td class="r pos" style="font-size:11px">37%</td><td class="r pos" style="font-size:11px">61%</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:14px"><strong>Key insight:</strong> Gross margin jumps from 42% → 97% in Year 3 because the $750K one-time entry cost hits only in Year 1. The underlying business is extremely high-margin. Break-even in Year 2. EBITDA of $17M by Year 3.</div>`},
+
+  sensitivity:{title:'🎯  Sensitivity Analysis — Year 3 Revenue',html:`
+    <p style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px">Penetration rate (rows) × Transaction fee (columns). Uniform across all segments. Base case highlighted with teal border.</p>
+    <table class="sens-tbl" id="sens-tbl"></table>
+    <div class="highlight-box" style="margin-top:16px"><strong>Key read:</strong> A 1% increase in penetration creates more value than a $1 increase in fee. Growth must be the priority in Years 1–2. Price increases can be tested in Year 3 once market position is established. Moving from $5 to $6/txn adds $103M to TAM — worth testing once sticky.</div>`,
+    init:buildSensPanel},
+
+  bva:{title:'📊  BVA Framework — Budget vs. Actuals',html:`
+    <div class="panel-grid2" style="margin-bottom:16px">
+      <div class="pcard"><h4>Revenue KPIs — Sample Month</h4>
+        <table style="width:100%;font-size:12px;margin-top:10px">
+          <tr style="color:rgba(255,255,255,.4);font-size:10px"><td>Metric</td><td style="text-align:right">Budget</td><td style="text-align:right">Actual</td><td style="text-align:right">Var%</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,.08)"><td style="padding:5px 0;color:rgba(255,255,255,.7)">New Customers (Pipeline)</td><td style="text-align:right">50</td><td style="text-align:right">38</td><td style="text-align:right;color:#F87171">−24%</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">New Customers (SDR)</td><td style="text-align:right">27</td><td style="text-align:right">31</td><td style="text-align:right;color:#34D399">+15%</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">Monthly Transactions</td><td style="text-align:right">4,200</td><td style="text-align:right">3,600</td><td style="text-align:right;color:#F87171">−14%</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">Monthly Revenue</td><td style="text-align:right">$21K</td><td style="text-align:right">$18K</td><td style="text-align:right;color:#F87171">−14%</td></tr>
+        </table>
+      </div>
+      <div class="pcard"><h4>Leading Indicators (Early Warning)</h4>
+        <table style="width:100%;font-size:12px;margin-top:10px">
+          <tr style="color:rgba(255,255,255,.4);font-size:10px"><td>KPI</td><td style="text-align:right">Budget</td><td style="text-align:right">Actual</td><td style="text-align:right">Signal</td></tr>
+          <tr style="border-top:1px solid rgba(255,255,255,.08)"><td style="padding:5px 0;color:rgba(255,255,255,.7)">Sales cycle (days)</td><td style="text-align:right">30</td><td style="text-align:right">52</td><td style="text-align:right;color:#F87171">⚠️ Slow</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">Lead→Customer rate</td><td style="text-align:right">5%</td><td style="text-align:right">2.8%</td><td style="text-align:right;color:#F87171">⚠️ Fix</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">Onboarding (days)</td><td style="text-align:right">3</td><td style="text-align:right">7</td><td style="text-align:right;color:#FCD34D">⚡ Watch</td></tr>
+          <tr><td style="padding:5px 0;color:rgba(255,255,255,.7)">Customer NPS</td><td style="text-align:right">60</td><td style="text-align:right">71</td><td style="text-align:right;color:#34D399">✅ Strong</td></tr>
+        </table>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;padding:14px;background:rgba(0,196,160,.08);border-radius:10px;border:1px solid rgba(0,196,160,.2)"><div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:6px;letter-spacing:.1em">10–20% VARIANCE</div><div style="font-size:12px;color:rgba(255,255,255,.6)">Rolling forecast update. No budget change. Monitor trend closely.</div></div>
+      <div style="flex:1;padding:14px;background:rgba(245,158,11,.08);border-radius:10px;border:1px solid rgba(245,158,11,.2)"><div style="font-size:10px;font-weight:700;color:#FCD34D;margin-bottom:6px;letter-spacing:.1em">20–30% VARIANCE</div><div style="font-size:12px;color:rgba(255,255,255,.6)">Formal reforecast. Board presentation. Corrective actions defined.</div></div>
+      <div style="flex:1;padding:14px;background:rgba(239,68,68,.08);border-radius:10px;border:1px solid rgba(239,68,68,.2)"><div style="font-size:10px;font-weight:700;color:#F87171;margin-bottom:6px;letter-spacing:.1em">&gt;30% VARIANCE</div><div style="font-size:12px;color:rgba(255,255,255,.6)">Strategic review. Evaluate market entry thesis. Trigger point decision.</div></div>
+    </div>`},
+
+  pipeline:{title:'⚡  Sales Pipeline Model',html:`
+    <table class="tbl" style="margin-bottom:16px">
+      <thead><tr><th>Metric</th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Marketing Spend</td><td class="r">$500K</td><td class="r">$1.2M</td><td class="r">$2.5M</td><td style="font-size:11px;color:rgba(255,255,255,.4)">Assumption</td></tr>
+        <tr><td>Cost per Lead (CPL)</td><td class="r">$310</td><td class="r">$310</td><td class="r">$310</td><td style="font-size:11px;color:rgba(255,255,255,.4)">First Page Sage 2025</td></tr>
+        <tr><td>Leads Generated</td><td class="r">1,613</td><td class="r">3,871</td><td class="r">8,065</td><td style="font-size:11px;color:rgba(255,255,255,.4)">Spend ÷ CPL</td></tr>
+        <tr><td>Qualified Opps</td><td class="r">323</td><td class="r">774</td><td class="r">1,613</td><td style="font-size:11px;color:rgba(255,255,255,.4)">Leads × 20% L2O</td></tr>
+        <tr><td>New Customers (Pipeline)</td><td class="r">81</td><td class="r">194</td><td class="r">403</td><td style="font-size:11px;color:rgba(255,255,255,.4)">Opps × 25% close</td></tr>
+        <tr><td>SDR Headcount</td><td class="r">2</td><td class="r">5</td><td class="r">10</td><td style="font-size:11px;color:rgba(255,255,255,.4)">Assumption</td></tr>
+        <tr><td>New Customers (SDR)</td><td class="r">54</td><td class="r">135</td><td class="r">270</td><td style="font-size:11px;color:rgba(255,255,255,.4)">27 deals/SDR/yr</td></tr>
+        <tr class="total"><td>Total New Customers</td><td class="r pos">135</td><td class="r pos">329</td><td class="r pos">673</td><td></td></tr>
+        <tr><td>Churned</td><td class="r neg">(0)</td><td class="r neg">(11)</td><td class="r neg">(37)</td><td style="font-size:11px;color:rgba(255,255,255,.4)">8% blended churn</td></tr>
+        <tr class="total"><td>Closing Active Customers</td><td class="r pos">135</td><td class="r pos">453</td><td class="r pos">1,089</td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box"><strong>Key lever:</strong> SDR productivity (27 deals/yr) is the highest-confidence assumption — Operatix/Gradient Works 2025 data (12 meetings/month × 19% win rate × 12). If marketing underperforms, scaling SDR headcount is the fastest corrective action.</div>`},
+
+  risks:{title:'⚠️  Risk Register',html:`
+    <table class="tbl">
+      <thead><tr><th>Risk</th><th>Level</th><th>Description</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">MTL Delays</td><td><span class="badge badge-red">HIGH</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">6–18 months per state. No revenue without license in that state.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">File Day 1. Use MMLA. Phase launch by license readiness.</td></tr>
+        <tr><td class="bold">CAC Overrun</td><td><span class="badge badge-red">HIGH</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">Actual CAC may exceed $9,500 if conversion rates disappoint.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Hard CAC ceiling per segment. Pause channels if CAC &gt;$15K.</td></tr>
+        <tr><td class="bold">Pricing Pressure</td><td><span class="badge badge-yellow">MED</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">Ignition may respond aggressively to Anchor's US entry.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Launch Monthly Cap before 50 medium-firm clients.</td></tr>
+        <tr><td class="bold">Cash Burn</td><td><span class="badge badge-yellow">MED</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">Conservative scenario burns $3.2M in Year 1.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Secure $4M runway pre-launch. Monthly burn dashboard.</td></tr>
+        <tr><td class="bold">Brand Gap</td><td><span class="badge badge-yellow">MED</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">Zero US recognition. Sales cycles may be longer than modeled.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">AICPA partnerships + early adopter program.</td></tr>
+        <tr><td class="bold">Churn Spike</td><td><span class="badge badge-green">LOW</span></td><td style="font-size:12px;color:rgba(255,255,255,.6)">Small firm churn may exceed 8%.</td><td style="font-size:12px;color:rgba(255,255,255,.6)">Deprioritize small firms. Focus retention on medium+.</td></tr>
+      </tbody>
+    </table>`}
+};
+
+function buildSensPanel(){
+  const t=document.getElementById('sens-tbl');if(!t)return;
+  const fees=[3,4,5,6,7],pens=[0.01,0.02,0.03,0.045,0.05,0.07,0.10];
+  const tot=60000*10*12+30000*100*12+10000*500*12;
+  const cols=['#1E1B50','#2D2878','#4433A0','#6650C8','#8A70E0','#A88EEE','#C4AAFF'];
+  let h=`<thead><tr><th style="text-align:left">Pen. / Fee</th>${fees.map(f=>`<th>$${f}/txn</th>`).join('')}</tr></thead><tbody>`;
+  pens.forEach((p,j)=>{
+    h+=`<tr><td class="rhdr">${(p*100).toFixed(1)}%</td>`;
+    fees.forEach(f=>{
+      const v=Math.round(tot*p*f),fmt=v>=1e6?`$${(v/1e6).toFixed(1)}M`:`$${(v/1e3).toFixed(0)}K`;
+      const base=Math.abs(p-0.045)<0.001&&f===5;
+      h+=`<td style="background:${cols[j]};color:${j>=3?'#fff':'rgba(255,255,255,.85)'};${base?'outline:2px solid var(--teal);font-weight:700':''}">${fmt}</td>`;
+    });
+    h+='</tr>';
+  });
+  t.innerHTML=h+'</tbody>';
+}
+</script>
+</body>
+</html>
